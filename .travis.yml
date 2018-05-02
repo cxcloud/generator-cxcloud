@@ -3,5 +3,5 @@ node_js:
   - v10
   - v8
 before_script:
-  - 'git config --global user.email "you@example.com"'
-  - 'git config --global user.name "Your Name"'
+  - 'git config --global user.email "sallar.kaboli@gmail.com"'
+  - 'git config --global user.name "Sallar Kaboli"'
