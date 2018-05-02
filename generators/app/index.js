@@ -1,21 +1,39 @@
-'use strict';
-const Generator = require('yeoman-generator');
-const chalk = require('chalk');
-const yosay = require('yosay');
+"use strict";
+const Generator = require("yeoman-generator");
+const chalk = require("chalk");
+const yosay = require("yosay");
 
 module.exports = class extends Generator {
   prompting() {
-    // Have Yeoman greet the user.
     this.log(
-      yosay(`Welcome to the impeccable ${chalk.red('generator-cxcloud')} generator!`)
+      yosay(
+        `Welcome to the impeccable ${chalk.red("generator-cxcloud")} generator!`
+      )
     );
 
     const prompts = [
       {
-        type: 'confirm',
-        name: 'someAnswer',
-        message: 'Would you like to enable this option?',
-        default: true
+        type: "input",
+        name: "projectName",
+        message: "Enter a DNS compatible project name",
+        default: this.appname
+      },
+      {
+        type: "input",
+        name: "projectDescription",
+        message: "Enter the project description"
+      },
+      {
+        type: "input",
+        name: "orgName",
+        message: "Enter your Github username/organization name",
+        default: this.user.github.username
+      },
+      {
+        type: "input",
+        name: "authorInfo",
+        message: "Enter your name and email",
+        default: `${this.user.git.name()} <${this.user.git.email()}>`
       }
     ];
 
@@ -26,13 +44,16 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
+    this.fs.copyTpl(
+      this.templatePath("package.json"),
+      this.destinationPath("package.json"),
+      this.props
     );
   }
 
   install() {
-    this.installDependencies();
+    // this.installDependencies({
+    //   bower: false
+    // });
   }
 };
