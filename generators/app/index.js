@@ -67,7 +67,6 @@ module.exports = class extends Generator {
   }
 
   install() {
-    this.gi;
     this.installDependencies({
       bower: false
     });
