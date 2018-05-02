@@ -4,6 +4,10 @@ const chalk = require('chalk');
 const yosay = require('yosay');
 
 module.exports = class extends Generator {
+  initializing() {
+    this.composeWith(require.resolve('generator-git-init'));
+  }
+
   prompting() {
     this.log(
       // eslint-disable-next-line prettier/prettier
@@ -63,6 +67,7 @@ module.exports = class extends Generator {
   }
 
   install() {
+    this.gi;
     this.installDependencies({
       bower: false
     });
