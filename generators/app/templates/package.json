@@ -22,7 +22,10 @@
     "type": "git",
     "url": "git+https://github.com/<%= orgName %>/<%= projectName %>.git"
   },
-  "author": "<%- authorInfo %>",
+  "author": {
+    "email": "<%- authorEmail %>",
+    "name": "<%- authorName %>"
+  },
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/<%= orgName %>/<%= projectName %>/issues"

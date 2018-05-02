@@ -33,9 +33,15 @@ module.exports = class extends Generator {
       },
       {
         type: 'input',
-        name: 'authorInfo',
+        name: 'authorName',
         message: 'Enter your name and email',
-        default: `${this.user.git.name()} <${this.user.git.email()}>`
+        default: this.user.git.name()
+      },
+      {
+        type: 'input',
+        name: 'authorEmail',
+        message: 'Enter your name and email',
+        default: this.user.git.email()
       }
     ];
 
@@ -45,11 +51,15 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    this.fs.copyTpl(
-      this.templatePath('package.json'),
-      this.destinationPath('package.json'),
-      this.props
-    );
+    const templates = ['package.json', 'swagger.config.json', 'README.md'];
+    this.fs.copy(this.templatePath('**/'), this.destinationPath());
+    templates.forEach(tpl => {
+      this.fs.copyTpl(
+        this.templatePath(tpl),
+        this.destinationPath(tpl),
+        this.props
+      );
+    });
   }
 
   install() {
