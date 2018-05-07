@@ -5,13 +5,11 @@
   "homepage": "https://docs.cxcloud.com",
   "author": {
     "name": "Sallar Kaboli",
-    "email": "sallar@cxcloud.com",
-    "url": ""
+    "email": "sallar@cxcloud.com"
   },
   "files": [
     "generators"
   ],
-  "main": "generators/index.js",
   "keywords": [
     "",
     "yeoman-generator"
