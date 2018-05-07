@@ -1,6 +1,6 @@
 {
   "name": "generator-cxcloud",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "description": "A generator for CXCloud projects",
   "homepage": "https://docs.cxcloud.com",
   "author": {
@@ -10,6 +10,7 @@
   "files": [
     "generators"
   ],
+  "main": "generators/app/index.js",
   "keywords": [
     "",
     "yeoman-generator"
