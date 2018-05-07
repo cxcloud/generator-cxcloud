@@ -56,11 +56,11 @@ module.exports = class extends Generator {
 
   writing() {
     const templates = ['package.json', 'swagger.config.json', 'README.md'];
+    const hiddenFiles = ['.gitignore', '.prettierrc', '.editorconfig'];
     this.fs.copy(this.templatePath('**/'), this.destinationPath());
-    this.fs.copy(
-      this.templatePath('.gitignore'),
-      this.destinationPath('.gitignore')
-    );
+    hiddenFiles.forEach(file => {
+      this.fs.copy(this.templatePath(file), this.destinationPath(file));
+    });
     templates.forEach(tpl => {
       this.fs.copyTpl(
         this.templatePath(tpl),
