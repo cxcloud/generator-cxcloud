@@ -8,13 +8,15 @@ module.exports = class extends Generator {
     this.composeWith(require.resolve('generator-git-init'));
   }
 
-  prompting() {
+  async prompting() {
     this.log(
       // eslint-disable-next-line prettier/prettier
       yosay(
         `Welcome to the impeccable ${chalk.red('generator-cxcloud')} generator!`
       )
     );
+
+    const githubUsername = await this.user.github.username();
 
     const prompts = [
       {
@@ -33,7 +35,7 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'orgName',
         message: 'Enter your Github username/organization name',
-        default: this.user.github.username
+        default: githubUsername
       },
       {
         type: 'input',
