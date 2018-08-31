@@ -8,7 +8,7 @@ module.exports = class extends Generator {
     this.composeWith(require.resolve('generator-git-init'));
   }
 
-   async prompting() {
+  async prompting() {
     this.log(
       // eslint-disable-next-line prettier/prettier
       yosay(
