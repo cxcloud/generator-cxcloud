@@ -40,13 +40,13 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'authorName',
-        message: 'Enter your name and email',
+        message: 'Enter your name',
         default: this.user.git.name()
       },
       {
         type: 'input',
         name: 'authorEmail',
-        message: 'Enter your name and email',
+        message: 'Enter your email',
         default: this.user.git.email()
       }
     ];
@@ -58,11 +58,13 @@ module.exports = class extends Generator {
 
   writing() {
     const templates = ['package.json', 'swagger.config.json', 'README.md'];
-    const hiddenFiles = ['.gitignore', '.prettierrc', '.editorconfig'];
-    this.fs.copy(this.templatePath('**/'), this.destinationPath());
-    hiddenFiles.forEach(file => {
-      this.fs.copy(this.templatePath(file), this.destinationPath(file));
+    // const hiddenFiles = ['.gitignore', '.prettierrc', '.editorconfig'];
+    this.fs.copy(this.templatePath('**/'), this.destinationPath(), {
+      globOptions: { dot: true }
     });
+    // hiddenFiles.forEach(file => {
+    //   this.fs.copy(this.templatePath(file), this.destinationPath(file));
+    // });
     templates.forEach(tpl => {
       this.fs.copyTpl(
         this.templatePath(tpl),
