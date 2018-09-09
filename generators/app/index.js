@@ -63,6 +63,24 @@ module.exports = class extends Generator {
         when: p => p.isDeployedToKube,
         message: 'Choose an ECR repository',
         choices: () => getECRRepositories()
+      },
+      {
+        type: 'confirm',
+        name: 'isRouted',
+        message: 'Do you want this service to be accessible on the internet?',
+        default: true
+      },
+      {
+        type: 'input',
+        name: 'kubeDomain',
+        when: p => p.isRouted,
+        message: 'Enter a domain name'
+      },
+      {
+        type: 'confirm',
+        name: 'isSecure',
+        message: 'Do you want a LetsEncrypt SSL certificate for this domain?',
+        default: true
       }
     ]);
   }
@@ -82,8 +100,26 @@ module.exports = class extends Generator {
     // Copy Deployment
     if (this.props.isDeployedToKube) {
       this.fs.copyTpl(
-        this.templatePath('deployment/**/'),
-        this.destinationPath('deployment/'),
+        this.templatePath('deployment/deployment.yml'),
+        this.destinationPath('deployment/01-deployment.yml'),
+        this.props
+      );
+    }
+
+    // Copy Routing
+    if (this.props.isRouted) {
+      this.fs.copyTpl(
+        this.templatePath('deployment/routing.yml'),
+        this.destinationPath('deployment/02-routing.yml'),
+        this.props
+      );
+    }
+
+    // Copy Certificate
+    if (this.props.isSecure) {
+      this.fs.copyTpl(
+        this.templatePath('deployment/cert.yml'),
+        this.destinationPath('deployment/03-cert.yml'),
         this.props
       );
     }
