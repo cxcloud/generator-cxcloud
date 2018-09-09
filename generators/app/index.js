@@ -2,6 +2,7 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
+const { getECRRepositories } = require('./utils/cli');
 
 module.exports = class extends Generator {
   initializing() {
@@ -18,7 +19,7 @@ module.exports = class extends Generator {
 
     const githubUsername = await this.user.github.username();
 
-    const prompts = [
+    this.props = await this.prompt([
       {
         type: 'input',
         name: 'projectName',
@@ -48,30 +49,80 @@ module.exports = class extends Generator {
         name: 'authorEmail',
         message: 'Enter your email',
         default: this.user.git.email()
+      },
+      {
+        type: 'confirm',
+        name: 'isDeployedToKube',
+        message:
+          'Do you want to deploy this microservice to a Kubernetes cluster?',
+        default: true
+      },
+      {
+        type: 'list',
+        name: 'ecrRepository',
+        when: p => p.isDeployedToKube,
+        message: 'Choose an ECR repository',
+        choices: () => getECRRepositories()
+      },
+      {
+        type: 'confirm',
+        name: 'isRouted',
+        message: 'Do you want this service to be accessible on the internet?',
+        default: true
+      },
+      {
+        type: 'input',
+        name: 'kubeDomain',
+        when: p => p.isRouted,
+        message: 'Enter a domain name'
+      },
+      {
+        type: 'confirm',
+        name: 'isSecure',
+        message: 'Do you want a LetsEncrypt SSL certificate for this domain?',
+        default: true
       }
-    ];
-
-    return this.prompt(prompts).then(props => {
-      this.props = props;
-    });
+    ]);
   }
 
   writing() {
-    const templates = ['package.json', 'swagger.config.json', 'README.md'];
-    // const hiddenFiles = ['.gitignore', '.prettierrc', '.editorconfig'];
-    this.fs.copy(this.templatePath('**/'), this.destinationPath(), {
-      globOptions: { dot: true }
-    });
-    // hiddenFiles.forEach(file => {
-    //   this.fs.copy(this.templatePath(file), this.destinationPath(file));
-    // });
-    templates.forEach(tpl => {
+    // Copy Base Structure
+    this.fs.copyTpl(
+      this.templatePath('service/**/'),
+      this.destinationPath(),
+      this.props,
+      {},
+      {
+        globOptions: { dot: true, ignore: ['.DS_Store'] }
+      }
+    );
+
+    // Copy Deployment
+    if (this.props.isDeployedToKube) {
       this.fs.copyTpl(
-        this.templatePath(tpl),
-        this.destinationPath(tpl),
+        this.templatePath('deployment/deployment.yml'),
+        this.destinationPath('deployment/01-deployment.yml'),
         this.props
       );
-    });
+    }
+
+    // Copy Routing
+    if (this.props.isRouted) {
+      this.fs.copyTpl(
+        this.templatePath('deployment/routing.yml'),
+        this.destinationPath('deployment/02-routing.yml'),
+        this.props
+      );
+    }
+
+    // Copy Certificate
+    if (this.props.isSecure) {
+      this.fs.copyTpl(
+        this.templatePath('deployment/cert.yml'),
+        this.destinationPath('deployment/03-cert.yml'),
+        this.props
+      );
+    }
   }
 
   install() {

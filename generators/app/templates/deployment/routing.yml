@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: <%= projectName %>
+  namespace: applications
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+<% if (isSecure) { %>
+  tls:
+  - hosts:
+    - <%= kubeDomain %>
+    secretName: <%= projectName %>-cert
+<% } %>
+  rules:
+  - host: <%= kubeDomain %>
+    http:
+      paths:
+      - path: /api
+        backend:
+          serviceName: <%= projectName %>
+          servicePort: http

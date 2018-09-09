@@ -7,7 +7,7 @@ describe('generator-cxcloud:app', () => {
   beforeAll(() => {
     return helpers
       .run(path.join(__dirname, '../generators/app'))
-      .withPrompts({ someAnswer: true });
+      .withPrompts({ isDeployedToKube: false });
   });
 
   it('creates files', () => {
