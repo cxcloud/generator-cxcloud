@@ -69,21 +69,15 @@ module.exports = class extends Generator {
 
   writing() {
     // Copy Base Structure
-    const templates = [
-      'service/package.json',
-      'service/swagger.config.json',
-      'service/README.md'
-    ];
-    this.fs.copy(this.templatePath('service/**/'), this.destinationPath(), {
-      globOptions: { dot: true }
-    });
-    templates.forEach(tpl => {
-      this.fs.copyTpl(
-        this.templatePath(tpl),
-        this.destinationPath(tpl),
-        this.props
-      );
-    });
+    this.fs.copyTpl(
+      this.templatePath('service/**/'),
+      this.destinationPath(),
+      this.props,
+      {},
+      {
+        globOptions: { dot: true, ignore: ['.DS_Store'] }
+      }
+    );
 
     // Copy Deployment
     if (this.props.isDeployedToKube) {
