@@ -2,6 +2,7 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
+const { getECRRepositories } = require('./utils/cli');
 
 module.exports = class extends Generator {
   initializing() {
@@ -18,7 +19,7 @@ module.exports = class extends Generator {
 
     const githubUsername = await this.user.github.username();
 
-    const prompts = [
+    this.props = await this.prompt([
       {
         type: 'input',
         name: 'projectName',
@@ -48,23 +49,34 @@ module.exports = class extends Generator {
         name: 'authorEmail',
         message: 'Enter your email',
         default: this.user.git.email()
+      },
+      {
+        type: 'confirm',
+        name: 'isDeployedToKube',
+        message:
+          'Do you want to deploy this microservice to a Kubernetes cluster?',
+        default: true
+      },
+      {
+        type: 'list',
+        name: 'ecrRepository',
+        when: p => p.isDeployedToKube,
+        message: 'Choose an ECR repository',
+        choices: () => getECRRepositories()
       }
-    ];
-
-    return this.prompt(prompts).then(props => {
-      this.props = props;
-    });
+    ]);
   }
 
   writing() {
-    const templates = ['package.json', 'swagger.config.json', 'README.md'];
-    // const hiddenFiles = ['.gitignore', '.prettierrc', '.editorconfig'];
-    this.fs.copy(this.templatePath('**/'), this.destinationPath(), {
+    // Copy Base Structure
+    const templates = [
+      'service/package.json',
+      'service/swagger.config.json',
+      'service/README.md'
+    ];
+    this.fs.copy(this.templatePath('service/**/'), this.destinationPath(), {
       globOptions: { dot: true }
     });
-    // hiddenFiles.forEach(file => {
-    //   this.fs.copy(this.templatePath(file), this.destinationPath(file));
-    // });
     templates.forEach(tpl => {
       this.fs.copyTpl(
         this.templatePath(tpl),
@@ -72,6 +84,15 @@ module.exports = class extends Generator {
         this.props
       );
     });
+
+    // Copy Deployment
+    if (this.props.isDeployedToKube) {
+      this.fs.copyTpl(
+        this.templatePath('deployment/**/'),
+        this.destinationPath('deployment/'),
+        this.props
+      );
+    }
   }
 
   install() {
