@@ -87,7 +87,7 @@ module.exports = class extends Generator {
   writing() {
     // Copy Base Structure
     this.fs.copyTpl(
-      this.templatePath('service/**/'),
+      this.templatePath('service/**/*'),
       this.destinationPath(),
       this.props,
       {},
