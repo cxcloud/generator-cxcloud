@@ -2,7 +2,6 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
-const { getECRRepositories } = require('./utils/cli');
 
 module.exports = class extends Generator {
   initializing() {
@@ -62,7 +61,7 @@ module.exports = class extends Generator {
         name: 'ecrRepository',
         when: p => p.isDeployedToKube,
         message: 'Choose an ECR repository',
-        choices: () => getECRRepositories()
+        choices: this.options.repositories || []
       },
       {
         type: 'confirm',
