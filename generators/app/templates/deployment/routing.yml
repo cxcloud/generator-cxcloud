@@ -5,6 +5,9 @@ metadata:
   namespace: applications
   annotations:
     kubernetes.io/ingress.class: "nginx"
+<% if (isSecure) { %>
+    certmanager.k8s.io/cluster-issuer: letsencrypt-production
+<% } %>
 spec:
 <% if (isSecure) { %>
   tls:
