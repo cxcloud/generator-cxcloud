@@ -3,6 +3,25 @@ const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 
+const services = [
+  {
+    value: 'commerce',
+    name: 'Commerce (CommerceTools)'
+  },
+  {
+    value: 'search',
+    name: 'Search (Algolia)'
+  },
+  {
+    value: 'content',
+    name: 'Content (Contentful)'
+  },
+  {
+    value: 'auth',
+    name: 'Authentication (AWS Cognito)'
+  }
+];
+
 module.exports = class extends Generator {
   initializing() {
     this.composeWith(require.resolve('generator-git-init'));
@@ -48,6 +67,12 @@ module.exports = class extends Generator {
         name: 'authorEmail',
         message: 'Enter your email',
         default: this.user.git.email()
+      },
+      {
+        type: 'checkbox',
+        name: 'services',
+        message: 'Choose the services you want to install',
+        choices: services
       },
       {
         type: 'confirm',
@@ -96,6 +121,14 @@ module.exports = class extends Generator {
       }
     );
 
+    this.props.services.forEach(service => {
+      this.fs.copyTpl(
+        this.templatePath(`controllers/${service}/**/*`),
+        this.destinationPath('src/controllers/'),
+        this.props
+      );
+    });
+
     // Copy Deployment
     if (this.props.isDeployedToKube) {
       this.fs.copyTpl(
@@ -128,5 +161,6 @@ module.exports = class extends Generator {
     this.installDependencies({
       bower: false
     });
+    this.npmInstall(this.props.services.map(service => `@cxcloud/${service}`));
   }
 };
