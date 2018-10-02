@@ -162,11 +162,12 @@ module.exports = class extends Generator {
       bower: false
     });
 
-    // If commerce is chosen, install required dependency as well
-    if (this.props.services.indexOf('commerce') > -1) {
-      this.props.services.push('ct-types');
+    const packages = this.props.services.map(service => `@cxcloud/${service}`);
+
+    if (this.props.services.includes('commerce')) {
+      packages.push('@cxcloud/ct-types', '@buttercup/generator');
     }
 
-    this.npmInstall(this.props.services.map(service => `@cxcloud/${service}`));
+    this.npmInstall(packages);
   }
 };
