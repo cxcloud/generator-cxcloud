@@ -161,6 +161,13 @@ module.exports = class extends Generator {
     this.installDependencies({
       bower: false
     });
-    this.npmInstall(this.props.services.map(service => `@cxcloud/${service}`));
+
+    const packages = this.props.services.map(service => `@cxcloud/${service}`);
+
+    if (this.props.services.includes('commerce')) {
+      packages.push('@cxcloud/ct-types', '@buttercup/generator');
+    }
+
+    this.npmInstall(packages);
   }
 };

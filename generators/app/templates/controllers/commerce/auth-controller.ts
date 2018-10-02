@@ -15,8 +15,7 @@ export interface ILogin {
 
 @Path('/auth')
 export class AuthController {
-  @Context
-  ctx!: ServiceContext;
+  @Context ctx!: ServiceContext;
 
   @Path('/login')
   @Tags('auth')
