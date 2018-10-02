@@ -161,6 +161,12 @@ module.exports = class extends Generator {
     this.installDependencies({
       bower: false
     });
+
+    // If commerce is chosen, install required dependency as well
+    if (this.props.services.indexOf('commerce') > -1) {
+      this.props.services.push('ct-types');
+    }
+
     this.npmInstall(this.props.services.map(service => `@cxcloud/${service}`));
   }
 };
