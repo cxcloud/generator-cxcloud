@@ -37,7 +37,9 @@
   },
   "homepage": "https://github.com/<%= orgName %>/<%= projectName %>#readme",
   "dependencies": {
+    <% if (services.indexOf('commerce') > -1) { %>
     "@buttercup/generator": "^1.2.0",
+    <% } %>
     "body-parser": "^1.18.2",
     "bunyan": "^1.8.12",
     "config": "^1.27.0",

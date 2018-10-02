@@ -16,22 +16,22 @@ import {
     IAddLineItem,
     IChangeLineItemQuantity
   } from '@cxcloud/ct-types/carts';
-  
+
   interface ISetShippingMethod {
     shippingMethodId: string;
   }
-  
+
   @Path('/carts')
   export class CartsController {
     @Context ctx!: ServiceContext;
-  
+
     @Tags('carts')
     @Security('token')
     @POST
     createCart(): Promise<Cart> {
       return Carts.create(this.ctx.response.locals.authToken);
     }
-  
+
     @Path('/active')
     @Tags('carts')
     @Security('token')
@@ -39,7 +39,7 @@ import {
     getActiveCart(): Promise<Cart> {
       return Carts.findActiveCart(this.ctx.response.locals.authToken);
     }
-  
+
     @Path(':id')
     @Tags('carts')
     @Security('token')
@@ -48,13 +48,13 @@ import {
       return Carts.findById(id, this.ctx.response.locals.authToken);
     }
   }
-  
+
   @Path('/carts/:id/:version')
   export class CartController {
     @Context ctx!: ServiceContext;
     @PathParam('id') cartId!: string;
     @PathParam('version') cartVersion!: number;
-  
+
     @Path('/lineItems')
     @Tags('carts')
     @Security('token')
@@ -67,7 +67,7 @@ import {
         this.ctx.response.locals.authToken
       );
     }
-  
+
     @Path('/lineItems/:lineItemId')
     @Tags('carts')
     @Security('token')
@@ -80,7 +80,7 @@ import {
         this.ctx.response.locals.authToken
       );
     }
-  
+
     @Path('/lineItems')
     @Tags('carts')
     @Security('token')
@@ -93,7 +93,7 @@ import {
         this.ctx.response.locals.authToken
       );
     }
-  
+
     @Path('/shippingAddress')
     @Tags('carts')
     @Security('token')
@@ -106,7 +106,7 @@ import {
         this.ctx.response.locals.authToken
       );
     }
-  
+
     @Path('/billingAddress')
     @Tags('carts')
     @Security('token')
@@ -119,7 +119,7 @@ import {
         this.ctx.response.locals.authToken
       );
     }
-  
+
     @Path('/shippingMethod')
     @Tags('carts')
     @Security('token')
