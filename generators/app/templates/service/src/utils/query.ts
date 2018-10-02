@@ -7,9 +7,9 @@ export function getQueryOptions(
   ascending?: boolean
 ): QueryOptions {
   return {
-  page: typeof page !== 'number' || page < 1 ? 1 : page,
-  perPage: typeof perPage !== 'number' || perPage < 1 ? 20 : perPage,
-  sortPath,
-  ascending
+    page: typeof page !== 'number' || page < 1 ? 1 : page,
+    perPage: typeof perPage !== 'number' || perPage < 1 ? 20 : perPage,
+    sortPath,
+    ascending
   };
 }
