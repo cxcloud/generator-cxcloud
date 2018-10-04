@@ -6,7 +6,8 @@ const yosay = require('yosay');
 const services = [
   {
     value: 'commerce',
-    name: 'Commerce (CommerceTools)'
+    name: 'Commerce (CommerceTools)',
+    conflictsWith: ['auth']
   },
   {
     value: 'search',
@@ -18,7 +19,8 @@ const services = [
   },
   {
     value: 'auth',
-    name: 'Authentication (AWS Cognito)'
+    name: 'Authentication (AWS Cognito)',
+    conflictsWith: ['commerce']
   }
 ];
 
@@ -72,7 +74,24 @@ module.exports = class extends Generator {
         type: 'checkbox',
         name: 'services',
         message: 'Choose the services you want to install',
-        choices: services
+        choices: services,
+        validate: input => {
+          for (const serviceName of input) {
+            const service = services.find(s => s.value === serviceName);
+            if (Array.isArray(service.conflictsWith)) {
+              const conflicts = input.some(inputService =>
+                service.conflictsWith.includes(inputService)
+              );
+              if (conflicts) {
+                return `'${serviceName}' conflicts with ${service.conflictsWith.join(
+                  ', '
+                )}. You can not choose conflicting services in one project.`;
+              }
+            }
+          }
+
+          return true;
+        }
       },
       {
         type: 'confirm',
@@ -91,8 +110,9 @@ module.exports = class extends Generator {
       {
         type: 'confirm',
         name: 'isRouted',
+        when: p => p.isDeployedToKube,
         message: 'Do you want this service to be accessible on the internet?',
-        default: true
+        default: false
       },
       {
         type: 'input',
@@ -103,8 +123,9 @@ module.exports = class extends Generator {
       {
         type: 'confirm',
         name: 'isSecure',
+        when: p => p.isRouted,
         message: 'Do you want a LetsEncrypt SSL certificate for this domain?',
-        default: true
+        default: false
       }
     ]);
   }
@@ -123,8 +144,8 @@ module.exports = class extends Generator {
 
     this.props.services.forEach(service => {
       this.fs.copyTpl(
-        this.templatePath(`controllers/${service}/**/*`),
-        this.destinationPath('src/controllers/'),
+        this.templatePath(`services/${service}/**/*`),
+        this.destinationPath('src/'),
         this.props
       );
     });
