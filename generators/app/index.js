@@ -91,8 +91,9 @@ module.exports = class extends Generator {
       {
         type: 'confirm',
         name: 'isRouted',
+        when: p => p.isDeployedToKube,
         message: 'Do you want this service to be accessible on the internet?',
-        default: true
+        default: false
       },
       {
         type: 'input',
@@ -103,8 +104,9 @@ module.exports = class extends Generator {
       {
         type: 'confirm',
         name: 'isSecure',
+        when: p => p.isRouted,
         message: 'Do you want a LetsEncrypt SSL certificate for this domain?',
-        default: true
+        default: false
       }
     ]);
   }
