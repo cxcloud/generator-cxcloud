@@ -1,3 +1,4 @@
+export * from './admin-controller';
 export * from './auth-controller';
 export * from './carts-controller';
 export * from './categories-controller';
