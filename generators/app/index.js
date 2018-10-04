@@ -125,8 +125,8 @@ module.exports = class extends Generator {
 
     this.props.services.forEach(service => {
       this.fs.copyTpl(
-        this.templatePath(`services/${service}/controllers/**/*`),
-        this.destinationPath('src/controllers/'),
+        this.templatePath(`services/${service}/**/*`),
+        this.destinationPath('src/'),
         this.props
       );
     });
