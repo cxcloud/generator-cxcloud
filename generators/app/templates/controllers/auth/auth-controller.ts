@@ -9,19 +9,28 @@ import {
   passwordForgot,
   passwordReset,
   profile,
-  profileEdit,
+  profileEdit, //put
   profileEditAttributeConfirmation,
-  profileEditPhoneNumber,
+  profileEditPhoneNumber, //put
   refreshSession,
   register,
   registerConfirmation,
   registerResendCode
 } from '@cxcloud/auth';
 
-export interface ILogin {
-  username: string;
-  password: string;
-}
+import {
+  IAttributesHash,
+  ICodeDeliveryResult,
+  ICognitoAttribute,
+  ILogin,
+  ILoginMfa,
+  ILoginNextStepResult,
+  ILoginSuccessResult,
+  IRefreshSession,
+  IRegister,
+  IRegisterResult,
+  Status
+} from './types';
 
 @Path('/auth')
 export class AuthController {
@@ -30,11 +39,41 @@ export class AuthController {
   @Path('/login')
   @Tags('auth')
   @POST
-  loginUser(body: ILogin): Promise<LoginSuccessResult | LoginNextStepResult> {
+  loginUser(body: ILogin): Promise<ILoginSuccessResult | ILoginNextStepResult> {
     const { username, password } = body;
     return login(
       username,
       password
+    );
+  }
+
+  // @Path('/logout')
+  // @Tags('auth')
+  // @POST
+  // logoutUser(refreshToken: string): Promise<Status> {
+  //   return logout(
+  //     refreshToken
+  //   );
+  // }
+
+  @Path('/refreshSession')
+  @Tags('auth')
+  @POST
+  refreshUserSession(refreshSessionBody: IRefreshSession): Promise<ILoginSuccessResult> {
+    return refreshSession(
+      refreshSessionBody.refreshToken
+    );
+  }
+
+  @Path('/register')
+  @Tags('auth')
+  @POST
+  registerUser(body: IRegister): Promise<IRegisterResult> {
+    const { username, password, attributes = {} } = body;
+    return register(
+      username,
+      password,
+      attributes
     );
   }
 }

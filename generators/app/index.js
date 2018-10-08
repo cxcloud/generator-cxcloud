@@ -187,6 +187,8 @@ module.exports = class extends Generator {
 
     if (this.props.services.includes('commerce')) {
       packages.push('@cxcloud/ct-types', '@buttercup/generator');
+    } else if (this.props.services.includes('auth')) {
+      packages.push('@cxcloud/ct-types');
     }
 
     this.npmInstall(packages);
