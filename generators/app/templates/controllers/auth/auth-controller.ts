@@ -1,4 +1,4 @@
-import { Context, Path, POST, PUT, ServiceContext } from 'typescript-rest';
+import { Path, POST, PUT } from 'typescript-rest';
 import { Tags } from 'typescript-rest-swagger';
 import {
   login,
@@ -37,13 +37,10 @@ import {
   IRegisterResendCode,
   IRegisterResult
 } from './types';
-import { CodeDeliveryResult, AttributesHash } from '../../node_modules/@cxcloud/auth/dist/sdk/types';
+import { AttributesHash } from '../../node_modules/@cxcloud/auth/dist/sdk/types';
 
 @Path('/auth')
 export class AuthController {
-  @Context
-  ctx!: ServiceContext;
-
   @Path('/login')
   @Tags('auth')
   @POST
