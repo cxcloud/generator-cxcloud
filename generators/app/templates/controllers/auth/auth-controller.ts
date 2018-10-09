@@ -1,5 +1,5 @@
-import { POST, Path, Context, ServiceContext } from 'typescript-rest';
-import { Tags, Security } from 'typescript-rest-swagger';
+import { Context, Path, POST, PUT, ServiceContext } from 'typescript-rest';
+import { Tags } from 'typescript-rest-swagger';
 import {
   login,
   loginMfa,
@@ -9,9 +9,9 @@ import {
   passwordForgot,
   passwordReset,
   profile,
-  profileEdit, //put
+  profileEdit,
   profileEditAttributeConfirmation,
-  profileEditPhoneNumber, //put
+  profileEditPhoneNumber,
   refreshSession,
   register,
   registerConfirmation,
@@ -19,61 +19,133 @@ import {
 } from '@cxcloud/auth';
 
 import {
-  IAttributesHash,
   ICodeDeliveryResult,
-  ICognitoAttribute,
   ILogin,
   ILoginMfa,
   ILoginNextStepResult,
+  ILoginNewPasswordRequired,
   ILoginSuccessResult,
-  IRefreshSession,
+  IPasswordChage,
+  IPasswordForgot,
+  IPasswordReset,
+  IProfileEdit,
+  IProfileEditAttributeConfirmation,
+  IProfileEditPhoneNumber,
+  IRefreshToken,
   IRegister,
-  IRegisterResult,
-  Status
+  IRegisterConfirmation,
+  IRegisterResendCode,
+  IRegisterResult
 } from './types';
+import { CodeDeliveryResult, AttributesHash } from '../../node_modules/@cxcloud/auth/dist/sdk/types';
 
 @Path('/auth')
 export class AuthController {
-  @Context ctx!: ServiceContext;
+  @Context
+  ctx!: ServiceContext;
 
   @Path('/login')
   @Tags('auth')
   @POST
-  loginUser(body: ILogin): Promise<ILoginSuccessResult | ILoginNextStepResult> {
-    const { username, password } = body;
-    return login(
-      username,
-      password
-    );
+  loginFn(body: ILogin): Promise<ILoginSuccessResult | ILoginNextStepResult> {
+    return login(body.username, body.password);
   }
 
-  // @Path('/logout')
-  // @Tags('auth')
-  // @POST
-  // logoutUser(refreshToken: string): Promise<Status> {
-  //   return logout(
-  //     refreshToken
-  //   );
-  // }
+  @Path('/loginMfa')
+  @Tags('auth')
+  @POST
+  loginMfaFn(body: ILoginMfa): Promise<ILoginSuccessResult> {
+    return loginMfa(body.username, body.mfaCode, body.loginSession);
+  }
+
+  @Path('/loginNewPasswordRequired')
+  @Tags('auth')
+  @POST
+  loginNewPasswordRequiredFn(body: ILoginNewPasswordRequired): Promise<ILoginSuccessResult> {
+    return loginNewPasswordRequired(body.username, body.newPassword, body.loginSession);
+  }
+
+  @Path('/logout')
+  @Tags('auth')
+  @POST
+  logoutFn(body: IRefreshToken): Promise<string> {
+    return logout(body.refreshToken);
+  }
+
+  @Path('/passwordForgot')
+  @Tags('auth')
+  @POST
+  passwordForgotFn(body: IPasswordForgot): Promise<ICodeDeliveryResult> {
+    return passwordForgot(body.username);
+  }
+
+  @Path('/passwordReset')
+  @Tags('auth')
+  @POST
+  passwordResetFn(body: IPasswordReset): Promise<string> {
+    return passwordReset(body.username, body.passwordResetCode, body.newPassword);
+  }
+
+  @Path('/passwordChange')
+  @Tags('auth')
+  @POST
+  passwordChangeFn(body: IPasswordChage): Promise<string> {
+    return passwordChange(body.refreshToken, body.oldPassword, body.newPassword);
+  }
+
+  @Path('/profile')
+  @Tags('profile')
+  @POST
+  profileFn(body: IRefreshToken): Promise<AttributesHash> {
+    return profile(body.refreshToken);
+  }
+
+  @Path('/profileEdit')
+  @Tags('profile')
+  @PUT
+  profileEditFn(body: IProfileEdit): Promise<string> {
+    return profileEdit(body.refreshToken, body.attributesHash);
+  }
+
+  @Path('/profileEditPhoneNumber')
+  @Tags('profile')
+  @PUT
+  profileEditPhoneNumberFn(body: IProfileEditPhoneNumber): Promise<string> {
+    return profileEditPhoneNumber(body.refreshToken, body.phoneNumber);
+  }
+
+  @Path('/profileEditAttributeConfirmation')
+  @Tags('profile')
+  @POST
+  profileEditAttributeConfirmationFn(body: IProfileEditAttributeConfirmation): Promise<string> {
+    return profileEditAttributeConfirmation(body.refreshToken, body.attribute, body.confirmationCode);
+  }
 
   @Path('/refreshSession')
   @Tags('auth')
   @POST
-  refreshUserSession(refreshSessionBody: IRefreshSession): Promise<ILoginSuccessResult> {
-    return refreshSession(
-      refreshSessionBody.refreshToken
-    );
+  refreshSessionFn(body: IRefreshToken): Promise<ILoginSuccessResult> {
+    return refreshSession(body.refreshToken);
   }
 
   @Path('/register')
   @Tags('auth')
   @POST
-  registerUser(body: IRegister): Promise<IRegisterResult> {
-    const { username, password, attributes = {} } = body;
-    return register(
-      username,
-      password,
-      attributes
-    );
+  registerFn(body: IRegister): Promise<IRegisterResult> {
+    return register(body.username, body.password, body.attributes);
+  }
+
+  @Path('/registerConfirmation')
+  @Tags('auth')
+  @POST
+  registerConfirmationFn(body: IRegisterConfirmation): Promise<string> {
+    return registerConfirmation(body.username, body.confirmationCode);
+  }
+
+  @Path('/registerResendCode')
+  @Tags('auth')
+  @POST
+  registerResendCodeFn(body: IRegisterResendCode): Promise<ICodeDeliveryResult> {
+    return registerResendCode(body.username);
   }
 }
