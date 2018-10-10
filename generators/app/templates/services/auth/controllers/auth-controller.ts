@@ -37,7 +37,7 @@ import {
   IRegisterResendCode,
   IRegisterResult
 } from './types';
-import { AttributesHash } from '../../node_modules/@cxcloud/auth/dist/sdk/types';
+import { IAttributesHash } from './types';
 
 @Path('/auth')
 export class AuthController {
@@ -93,7 +93,7 @@ export class AuthController {
   @Path('/profile')
   @Tags('profile')
   @POST
-  profileFn(body: IRefreshToken): Promise<AttributesHash> {
+  profileFn(body: IRefreshToken): Promise<IAttributesHash> {
     return profile(body.refreshToken);
   }
 
