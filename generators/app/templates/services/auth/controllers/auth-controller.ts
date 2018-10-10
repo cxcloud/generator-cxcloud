@@ -17,7 +17,6 @@ import {
   registerConfirmation,
   registerResendCode
 } from '@cxcloud/auth';
-
 import {
   ICodeDeliveryResult,
   ILogin,
