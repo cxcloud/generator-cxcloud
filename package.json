@@ -1,6 +1,6 @@
 {
   "name": "generator-cxcloud",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "description": "A generator for CXCloud projects",
   "homepage": "https://docs.cxcloud.com",
   "author": {
