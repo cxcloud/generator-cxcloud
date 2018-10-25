@@ -1,7 +1,16 @@
 {
-  "name": "cxcloud-demo",
+  "name": "<%= projectName %>",
   "version": "1.0.0",
-  "license": "MIT",
+  "description": "<%= projectDescription %>",
+  "author": {
+    "email": "<%- authorEmail %>",
+    "name": "<%- authorName %>"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/<%= orgName %>/<%= projectName %>/issues"
+  },
+  "homepage": "https://github.com/<%= orgName %>/<%= projectName %>#readme",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve",
