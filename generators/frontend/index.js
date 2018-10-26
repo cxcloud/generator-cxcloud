@@ -6,19 +6,11 @@ const yosay = require('yosay');
 const frontendChoices = [
   {
     value: 'angular-demo',
-    name: 'Front-end CXCloud demo based on Angular 6'
+    name: 'Front-end CXCloud demo based on Angular 7'
   },
   {
     value: 'react-demo',
     name: 'Front-end CXCloud demo based on React'
-  },
-  {
-    value: 'angular-accelerator',
-    name: 'Front-end CXCloud accelerator based on Angular 6'
-  },
-  {
-    value: 'react-accelerator',
-    name: 'Front-end CXCloud accelerator based on React'
   }
 ];
 
@@ -71,7 +63,7 @@ module.exports = class extends Generator {
       {
         type: 'list',
         name: 'frontend',
-        message: 'Which demo or accelerator do you want to generate?',
+        message: 'Which demo do you want to generate?',
         choices: frontendChoices
       }
     ]);
