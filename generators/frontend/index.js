@@ -27,7 +27,9 @@ module.exports = class extends Generator {
       )
     );
 
-    const githubUsername = await this.user.github.username();
+    const githubUsername = await this.user.github.username().catch(() => {
+      return '';
+    });
 
     this.props = await this.prompt([
       {
