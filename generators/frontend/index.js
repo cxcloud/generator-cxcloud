@@ -42,7 +42,7 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'projectDescription',
         message: 'Enter the project description',
-        default: 'A CXCloud Microservice'
+        default: 'A CXCloud demo'
       },
       {
         type: 'input',
@@ -75,7 +75,11 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath(`${this.props.frontend}/**/*`),
       this.destinationPath(''),
-      this.props
+      this.props,
+      {},
+      {
+        globOptions: { dot: true, ignore: ['.DS_Store'] }
+      }
     );
   }
 
