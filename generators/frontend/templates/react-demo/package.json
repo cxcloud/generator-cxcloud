@@ -6,6 +6,10 @@
     "email": "<%- authorEmail %>",
     "name": "<%- authorName %>"
   },
+  "bugs": {
+    "url": "https://github.com/<%= orgName %>/<%= projectName %>/issues"
+  },
+  "homepage": "https://github.com/<%= orgName %>/<%= projectName %>#readme",
   "scripts": {
     "dev": "next",
     "build": "next build",
