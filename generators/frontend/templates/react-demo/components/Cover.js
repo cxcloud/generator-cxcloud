@@ -38,7 +38,7 @@ export default class extends Component {
     <Wrapper>
       <div>
       <h2>Welcome to</h2>
-      <h1>CX-Coud E-shop</h1>
+      <h1>CX-Cloud E-shop</h1>
       </div>
     </Wrapper>
     )
