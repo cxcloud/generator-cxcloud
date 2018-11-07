@@ -78,8 +78,17 @@ module.exports = class extends Generator {
       this.props,
       {},
       {
-        globOptions: { dot: true, ignore: ['.DS_Store'] }
+        globOptions: {
+          dot: true,
+          ignore: ['.DS_Store', '**/*.(jpg|jpeg|png|gif|svg)']
+        }
       }
+    );
+
+    // Copy images without ejs processing
+    this.fs.copy(
+      this.templatePath(`${this.props.frontend}/**/*.(jpg|jpeg|png|gif|svg)`),
+      this.destinationPath('')
     );
   }
 
