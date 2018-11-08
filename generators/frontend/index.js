@@ -2,6 +2,7 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
+const path = require('path');
 
 const frontendChoices = [
   {
@@ -72,24 +73,47 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    this.fs.copyTpl(
-      this.templatePath(`${this.props.frontend}/**/*`),
-      this.destinationPath(''),
-      this.props,
-      {},
-      {
-        globOptions: {
-          dot: true,
-          ignore: ['.DS_Store', '**/*.(jpg|jpeg|png|gif|svg)']
-        }
-      }
-    );
+    if (this.props.frontend === 'angular-demo') {
+      // Copy files from Angular demo repository
+      this.fs.copy(
+        path.join(__dirname, '/../../node_modules/cxcloud-demo/**/*'),
+        this.destinationPath('')
+      );
+    }
 
-    // Copy images without ejs processing
-    this.fs.copy(
-      this.templatePath(`${this.props.frontend}/**/*.(jpg|jpeg|png|gif|svg)`),
-      this.destinationPath('')
-    );
+    // Copy the templated files from generator's folder, if any
+    // this.fs.copyTpl(
+    //   this.templatePath(`${this.props.frontend}/**/*`),
+    //   this.destinationPath(''),
+    //   this.props,
+    //   {},
+    //   {
+    //     globOptions: {
+    //       dot: true,
+    //       ignore: ['.DS_Store']
+    //     }
+    //   }
+    // );
+
+    // Modify package.json file
+    const customJSON = {
+      name: this.props.projectName,
+      description: this.props.projectDescription,
+      author: {
+        email: this.props.authorEmail,
+        name: this.props.authorName
+      },
+      bugs: {
+        url: `https://github.com/${this.props.orgName}/${
+          this.props.projectName
+        }/issues`
+      },
+      homepage: `https://github.com/${this.props.orgName}/${
+        this.props.projectName
+      }#readme`
+    };
+
+    this.fs.extendJSON(this.destinationPath('package.json'), customJSON);
   }
 
   install() {
