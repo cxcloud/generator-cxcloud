@@ -7,9 +7,14 @@
     "name": "Sallar Kaboli",
     "email": "sallar@cxcloud.com"
   },
-  "files": ["generators"],
+  "files": [
+    "generators"
+  ],
   "main": "generators/app/index.js",
-  "keywords": ["", "yeoman-generator"],
+  "keywords": [
+    "",
+    "yeoman-generator"
+  ],
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
@@ -19,7 +24,7 @@
     "jest": "^23.6.0",
     "lint-staged": "^6.1.1",
     "nsp": "^2.8.0",
-    "prettier": "^1.11.1",
+    "prettier": "^1.15.1",
     "yeoman-assert": "^3.1.1",
     "yeoman-test": "^1.9.1"
   },
@@ -38,22 +43,36 @@
       "<rootDir>/node_modules/",
       "<rootDir>/generators/app/templates/"
     ],
-    "modulePathIgnorePatterns": ["<rootDir>/generators/app/templates/"]
+    "modulePathIgnorePatterns": [
+      "<rootDir>/generators/app/templates/"
+    ]
   },
   "scripts": {
     "pretest": "eslint .",
     "precommit": "lint-staged",
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier --write 'src/**/*.{css,scss,js,jsx,json}'"
   },
   "lint-staged": {
     "linters": {
-      "*.js": ["eslint --fix", "git add"],
-      "*.json": ["prettier --write", "git add"]
+      "*.js": [
+        "eslint --fix",
+        "git add"
+      ],
+      "*.json": [
+        "prettier --write",
+        "git add"
+      ]
     },
-    "ignore": ["**/generators/app/templates/**/*"]
+    "ignore": [
+      "**/generators/app/templates/**/*"
+    ]
   },
   "eslintConfig": {
-    "extends": ["xo", "prettier"],
+    "extends": [
+      "xo",
+      "prettier"
+    ],
     "env": {
       "jest": true,
       "node": true
@@ -68,7 +87,9 @@
         }
       ]
     },
-    "plugins": ["prettier"]
+    "plugins": [
+      "prettier"
+    ]
   },
   "repository": "cxcloud/generator-cxcloud",
   "license": "MIT"
