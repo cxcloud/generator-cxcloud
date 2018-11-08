@@ -37,19 +37,19 @@ export default class extends Component {
     const { categories, productsList } = this.state;
 
     const Wrapper = styled.div`
-      margin: 30px auto 30px auto;
-        padding: 20px 40px 20px 40px;
+      margin: 1.875rem auto;
+        padding: 1.25rem 2.5rem;
         color: darkslategrey;
         @media only screen and (max-width: 400px) {
-          padding: 0px 20px 0px 20px;
+          padding: 0 1.25rem;
         }
       }
-    `
+    `;
     const ListOfCategories = styled.div`
-      margin: 0px auto 2em auto;
+      margin: 0 auto 2em auto;
       max-width: 100em;
       padding-bottom: 5em;
-      border-bottom: 2px solid #f3f3f3;
+      border-bottom: 0.12rem solid #f3f3f3;
       display: flex;
       flex-direction: row;
       justify-content: center;
@@ -80,27 +80,27 @@ export default class extends Component {
       justify-content: center;
       height: 13em;
       text-align: center;
-      margin: 18px;
+      margin: 1.125rem;
       text-decoration: none;
       text-transform: uppercase;
-      border-radius: 2px;
+      border-radius: 0.12rem;
       h1 {
-        font-size: 22px;
-        background-color: rgba(245,245,245,0.8);
-        padding: 30px 30px 30px 30px;
+        font-size: 1.375rem;
+        background-color: rgba(245, 245, 245, 0.8);
+        padding: 1.875rem;
         :hover {
-        cursor: pointer;
-        color: rgba(245,245,245,);
+          cursor: pointer;
+          color: rgba(245, 245, 245);
         }
       }
-    `
+      `;
     const SelectedCategory = styled.div`
       display: flex;
       flex-wrap: wrap;
       max-width: 100em;
       margin: 0 auto;
       justify-content: center;
-    `
+      `;
     return(
       <Wrapper>
         <ListOfCategories>

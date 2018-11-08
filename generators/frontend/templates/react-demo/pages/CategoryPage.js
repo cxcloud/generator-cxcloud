@@ -20,12 +20,12 @@ export default class extends Component {
     const { productsList, categoryName } = this.props;
 
     const SelectedCategory = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    max-width: 100em;
-    justify-content: center;
-    margin: 0 auto;
-    `
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 100em;
+      justify-content: center;
+      margin: 0 auto;
+    `;
     return (
       <Layout>
         <div>

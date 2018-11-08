@@ -7,7 +7,7 @@ export default ({ id, name }) => {
 
   const Wrapper = styled.div`
     color: darkslategrey;
-    margin: 40px 20px auto 20px;
+    margin: 2.5rem 1.25rem auto 1.25rem;
     width: 14em;
     border-color: transparent;
     height: 10em;
@@ -17,15 +17,15 @@ export default ({ id, name }) => {
     cursor: pointer;
     background-color: whitesmoke;
     div {
-      padding: 20px;
-      font-size: 16px;
+      padding: 1.25rem;
+      font-size: 1rem;
       text-transform: uppercase;
       background-color: rgba(255,255,255, 0.9);
     }
     :first-child {
       background-image: url(http://www.pngmart.com/files/3/Beautiful-Girl-Transparent-Background.png);
       background-repeat: no-repeat;
-      background-position-x: -32px;
+      background-position-x: -2rem;
       background-size: cover;
     }
     :nth-child(2) {
@@ -41,15 +41,15 @@ export default ({ id, name }) => {
     }
     :nth-child(4) {
       background-image: url(http://www.pngmart.com/files/3/Sunglasses-PNG-Transparent-Image.png);
-      background-position-y: 28px;
-      background-position-x: -8px;
+      background-position-y: 1.75rem;
+      background-position-x: -0.5rem;
       background-repeat: no-repeat;
       background-size: cover;
     }
     :nth-child(5) {
       background-image: url(http://www.pngmart.com/files/7/Guy-Transparent-Images-PNG.png);
-      background-position-y: 10px;
-      background-position-x: 62px;
+      background-position-y: 0.625rem;
+      background-position-x: 3.875rem;
       background-repeat: no-repeat;
       background-size: cover;
     }
@@ -59,7 +59,7 @@ export default ({ id, name }) => {
       background-size: cover;
     }
   }
-  `
+  `;
   return (
     <Wrapper>
       <Link href={`/CategoryPage?name=${name}&id=${id}`}>

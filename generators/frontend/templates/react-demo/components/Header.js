@@ -8,39 +8,39 @@ import { faStar, faHandSpock, faShippingFast, faHeart, faAngleDown } from '@fort
 export default class extends Component {
   render() {
     const Wrapper = styled.div`
-      margin: 20px;
+      margin: 1.25rem;
       flex-direction: row;
       list-style: none;
       display: flex;
       width: contain;
       justify-content: space-between;
       ul {
-        padding-right: 40px;
+        padding-right: 2.5rem;
         display: flex;
         li {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        font-size: 18px;
-        font-weight: 500;
-        margin: auto 20px auto 20px;
-        a {
           display: flex;
           flex-direction: row;
           align-items: center;
-          text-decoration: none;
-          color: darkslategrey;
-        }
-        p {
-          margin-right: 10px;
+          font-size: 1.125rem;
+          font-weight: 500;
+          margin: auto 1.25rem;
+          a {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            text-decoration: none;
+            color: darkslategrey;
+          }
+          p {
+            margin-right: 0.625rem;
+          }
         }
       }
-    }
-    `
+    `;
     const Logo = styled.img`
       display: flex;
       justify-content: flex-start;
-    `
+    `;
     return(
       <Wrapper>
         <Link href={{ pathname: '/' }}>

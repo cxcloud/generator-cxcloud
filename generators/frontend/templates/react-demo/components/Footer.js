@@ -5,42 +5,41 @@ import styled from 'styled-components'
 export default () => {
   const Wrapper = styled.div`
     color: darkslategrey;
-    padding: 30px;
+    padding: 1.875rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     hr {
-      border-top: 2px solid #f3f3f3;;
+      border-top: 0.125 solid #f3f3f3;
       border-left-color: transparent;
-      height: 6px;
+      height: 0.375rem;
       border-right-color: transparent;
-      border-bottom: 2px solid #f3f3f3;;
+      border-bottom: 0.125rem solid #f3f3f3;
       width: 74%;
     }
     div {
       width: 100%;
       .copyright {
-      font-size: 18px;
-      font-weight: 200;
-      color: darkslategrey;
-    }
-    .copyright {
-      margin-top: 50px;
-      font-size: 12px;
-      text-align: center;
-    }
-  }
-  `
+        font-size: 1.125rem;
+        font-weight: 200;
+        color: darkslategrey;
+      }
+      .copyright {
+        margin-top: 3.125rem;
+        font-size: 0.75rem;
+        text-align: center;
+      }
+    }`;
   const Navbar = styled.div`
-    margin: 30px auto 0 auto;
+    margin: 1.875rem auto 0 auto;
     text-align: center;
     a {
       font-weight: 500;
       color: darkslategrey;
-      margin: auto 50px 10px 50px;
+      margin: auto 3.125rem 0.625rem 3.125rem;
       text-decoration: none;
     }
-  `
+  `;
   return(
     <Wrapper>
       <hr />

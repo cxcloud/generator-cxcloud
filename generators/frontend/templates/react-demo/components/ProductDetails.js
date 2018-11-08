@@ -18,10 +18,9 @@ export default ({
     margin: 10em auto auto auto;
     display: flex;
     justify-content: center;
-    padding: 20px 40px 20px 40px;
+    padding: 1.25rem 2.5rem;
     text-transform: capitalize;
-    color: darkslategrey;
-  `
+    color: darkslategrey;`;
   const ProductContainer = styled.div`
     display: flex;
     align-items: center;
@@ -29,57 +28,49 @@ export default ({
     .price {
       font-weight: bold;
     }
-    @media only screen and (max-width: 580px) {
-      display: flex;
-      flex-direction: column;
-    }
-  `
+    @media only screen and (max-width: 580px) {display: flex;
+      flex-direction: column;}`;
   const ProductImg = styled.div`
     text-align: center;
-    max-width: 30em;
-  `
+    max-width: 30em;`;
   const ProductInfo = styled.div`
     max-width: 50em;
-    @media only screen and (max-width: 1100px) {
-      padding: 0 40px 0 40px;
-      line-height: 26px;
-    }
+    @media only screen and (max-width: 1100px) {padding: 0 2.5rem;
+      line-height: 1.62rem;}
     h1 {
       font-weight: bold;
-      font-size: 28px;
+      font-size: 1.75rem;
       color: darkslategray;
-    }
-  `
+    }`;
   const Rating = styled.div`
     display: inline-flex;
     align-items: center;
     p {
-      margin-left: 15px;
+      margin-left: 0.93rem;
       a {
         color: lightgray;
         :visited {
           color: #000000;
         }
       }
-    }
-  `
+    }`;
   const Cart = styled.div`
     button {
-      padding: 15px 20px 15px 20px;
-      border-radius: 2px;
+      padding: 0.93rem 1.25rem;
+      border-radius: 0.12rem;
       background-color: #fff;
       color: #d3b756
-      font-size: 16px;
+      font-size: 1rem;
       font-weight: 600;
       text-transform: uppercase;
-      box-shadow: inset 0px 0px 8px -3px darkslategrey;
+      box-shadow: inset 0rem 0rem 0.5rem -0.18rem darkslategrey;
       :hover {
         border-color: transparent;
         background-color: rgba(89, 85, 85, 0.1);
         color: darkslategrey;
       }
     }
-  `
+  `;
   return(
     <Wrapper>
       <ProductContainer>

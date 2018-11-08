@@ -7,22 +7,21 @@ export default ({children}) => {
   const Wrapper = styled.div`
     margin: 0 auto;
     font-family: Helvetica, Geneva, Tahoma, sans-serif;
-    color: darkslategrey;
-  `
+    color: darkslategrey;`;
   const button = styled.button`
     background-color: #f1ca5a;
-    padding: 8px 30px 8px 30px;
+    padding: 0.5rem 1.87rem;
     color: white;
     font-weight: 400;
-    font-size: 18px;
-    border-radius: 8px;
-    margin-top: 20px;
+    font-size: 1.12rem;
+    border-radius: 0.5rem;
+    margin-top: 1.25rem;
     border-color: transparent;
     a {
       color: white;
       text-decoration: none;
     }
-  `
+  `;
   return(
     <Wrapper>
         <Header global />

@@ -17,7 +17,7 @@ export default class extends Component {
         text-align: center;
         text-transform: uppercase;
       }
-    `
+    `;
     return (
       <Wrapper>
         <h1>{name}</h1>
