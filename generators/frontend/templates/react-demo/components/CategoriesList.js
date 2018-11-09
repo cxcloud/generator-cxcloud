@@ -23,9 +23,9 @@ export default class extends Component {
 
   onClickCategory = (e, categoryId) => {
     e.preventDefault();
-    Util.fetchProducts(categoryId).then(list => {
-      this.setState({ productsList: list.results });
-    });
+    Util.fetchProducts(categoryId).then(list =>
+      this.setState({ productsList: list.results })
+    );
   }
 
   showProductsList = (e) => {
@@ -38,11 +38,10 @@ export default class extends Component {
 
     const Wrapper = styled.div`
       margin: 1.875rem auto;
-        padding: 1.25rem 2.5rem;
-        color: darkslategrey;
-        @media only screen and (max-width: 400px) {
-          padding: 0 1.25rem;
-        }
+      padding: 1.25rem 2.5rem;
+      color: darkslategrey;
+      @media only screen and (max-width: 400px) {
+        padding: 0 1.25rem;
       }
     `;
     const ListOfCategories = styled.div`
@@ -68,6 +67,7 @@ export default class extends Component {
       }
     @media only screen and (max-width: 1600px) {
       max-width: 65em;
+    }
     `;
     const CategoryName = styled.div`
       background-position: center;

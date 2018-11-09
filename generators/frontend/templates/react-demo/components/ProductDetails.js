@@ -36,7 +36,8 @@ export default ({
   const ProductInfo = styled.div`
     max-width: 50em;
     @media only screen and (max-width: 1100px) {padding: 0 2.5rem;
-      line-height: 1.62rem;}
+      line-height: 1.62;
+    }
     h1 {
       font-weight: bold;
       font-size: 1.75rem;

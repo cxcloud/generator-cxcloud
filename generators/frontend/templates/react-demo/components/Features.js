@@ -26,7 +26,7 @@ export default class extends Component {
       flex-direction: column;
       width: 32em;
       margin: 0 1.875rem;
-      line-height: 1.75rem;
+      line-height: 1.75;
       color: darkslategrey;
         .icon {
           margin: 0.625rem auto;
