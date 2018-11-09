@@ -22,15 +22,15 @@ export default class extends Component {
   }
 
   onClickCategory = (e, categoryId) => {
-    e.preventDefault()
+    e.preventDefault();
     Util.fetchProducts(categoryId).then(list => {
       this.setState({ productsList: list.results });
     });
   }
 
   showProductsList = (e) => {
-    e.preventDefault()
-    this.setState({ show: false})
+    e.preventDefault();
+    this.setState({ show: false })
   }
 
   render() {
