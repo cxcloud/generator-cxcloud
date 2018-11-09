@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import Link from 'next/link'
-import Util from '../common/Util'
-import styled from 'styled-components'
+import React, { Component } from 'react';
+import Link from 'next/link';
+import Util from '../common/Util';
+import styled from 'styled-components';
 
 export default class extends Component {
 

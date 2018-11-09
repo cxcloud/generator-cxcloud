@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export default ({children}) => {
   const Wrapper = styled.div`

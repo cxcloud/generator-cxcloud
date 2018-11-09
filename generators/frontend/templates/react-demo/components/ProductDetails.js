@@ -1,8 +1,8 @@
-import React, { Component } from 'react'
-import CategoriesList from './CategoriesList'
-import styled from 'styled-components'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar } from '@fortawesome/fontawesome-free-solid'
+import React, { Component } from 'react';
+import CategoriesList from './CategoriesList';
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/fontawesome-free-solid';
 
 export default ({
   id,

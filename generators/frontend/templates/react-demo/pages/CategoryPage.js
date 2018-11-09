@@ -1,11 +1,11 @@
-import React, { Component } from 'react'
-import Util from '../common/Util'
-import styled from 'styled-components'
-import Layout from '../components/Layout'
+import React, { Component } from 'react';
+import Util from '../common/Util';
+import styled from 'styled-components';
+import Layout from '../components/Layout';
 import _ from 'lodash';
 import './index';
-import ProductsCard from '../components/ProductsCard'
-import Title from '../components/Title'
+import ProductsCard from '../components/ProductsCard';
+import Title from '../components/Title';
 
 export default class extends Component {
   static async getInitialProps({ query, req }) {

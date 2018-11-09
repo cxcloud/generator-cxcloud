@@ -1,6 +1,6 @@
-import React from 'react'
-import styled from 'styled-components'
-import Link from 'next/link'
+import React from 'react';
+import styled from 'styled-components';
+import Link from 'next/link';
 
 export default ({ id, name, image, description, price, currency, title }) => {
   const Wrapper = styled.div`

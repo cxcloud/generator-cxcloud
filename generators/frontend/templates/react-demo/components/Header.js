@@ -1,9 +1,9 @@
-import React, { Component } from 'react'
-import Link from 'next/link'
-import Util from '../common/Util'
-import styled from 'styled-components'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faStar, faHandSpock, faShippingFast, faHeart, faAngleDown } from '@fortawesome/fontawesome-free-solid'
+import React, { Component } from 'react';
+import Link from 'next/link';
+import Util from '../common/Util';
+import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faHandSpock, faShippingFast, faHeart, faAngleDown } from '@fortawesome/fontawesome-free-solid';
 
 export default class extends Component {
   render() {

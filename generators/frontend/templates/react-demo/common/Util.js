@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import "isomorphic-fetch"
+import "isomorphic-fetch";
 
 export default class Util {
   static async fetchCategories() {

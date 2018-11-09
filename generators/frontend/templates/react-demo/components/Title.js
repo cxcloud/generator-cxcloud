@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 export default class extends Component {
   static async getInitialProps({ query, req }) {
@@ -9,7 +9,7 @@ export default class extends Component {
     const Wrapper = styled.div`
       margin-top: 10em;
       h1 {
-        position: fixed
+        position: fixed;
         color: darkslategrey;
         font-size: 38px;
         letter-spacing: 6px;
