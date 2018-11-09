@@ -9,7 +9,6 @@ export default class extends Component {
     const Wrapper = styled.div`
       margin-top: 10em;
       h1 {
-        position: fixed;
         color: #2f4f4f;
         font-size: 38px;
         letter-spacing: 6px;
