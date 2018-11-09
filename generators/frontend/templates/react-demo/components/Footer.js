@@ -4,13 +4,13 @@ import styled from 'styled-components';
 
 export default () => {
   const Wrapper = styled.div`
-    color: darkslategrey;
+    color: #2f4f4f;
     padding: 1.875rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     hr {
-      border-top: 0.125 solid #f3f3f3;
+      border-top: 0.125rem solid #f3f3f3;
       border-left-color: transparent;
       height: 0.375rem;
       border-right-color: transparent;
@@ -22,7 +22,7 @@ export default () => {
       .copyright {
         font-size: 1.125rem;
         font-weight: 200;
-        color: darkslategrey;
+        color: #2f4f4f;
       }
       .copyright {
         margin-top: 3.125rem;
@@ -35,11 +35,10 @@ export default () => {
     text-align: center;
     a {
       font-weight: 500;
-      color: darkslategrey;
+      color: #2f4f4f;
       margin: auto 3.125rem 0.625rem 3.125rem;
       text-decoration: none;
-    }
-  `;
+    }`;
   return(
     <Wrapper>
       <hr />

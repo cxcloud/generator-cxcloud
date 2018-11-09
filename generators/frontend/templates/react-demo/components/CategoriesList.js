@@ -39,11 +39,8 @@ export default class extends Component {
     const Wrapper = styled.div`
       margin: 1.875rem auto;
       padding: 1.25rem 2.5rem;
-      color: darkslategrey;
-      @media only screen and (max-width: 400px) {
-        padding: 0 1.25rem;
-      }
-    `;
+      color: #2f4f4f;
+      @media only screen and (max-width: 400px) {padding: 0 1.25rem;}`;
     const ListOfCategories = styled.div`
       margin: 0 auto 2em auto;
       max-width: 100em;
@@ -55,12 +52,6 @@ export default class extends Component {
       flex-wrap: wrap;
       :active {
         color: rgba(211, 183, 86, 1);
-      }
-      :focus {
-        color: red;
-      }
-      :target {
-        color: red;
       }
       :nth-child(2n) {
         flex-grow: 1;
@@ -90,7 +81,7 @@ export default class extends Component {
         padding: 1.875rem;
         :hover {
           cursor: pointer;
-          color: rgba(245, 245, 245);
+          color: rgba(245, 245, 245, 1);
         }
       }
       `;

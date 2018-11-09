@@ -20,7 +20,8 @@ export default ({
     justify-content: center;
     padding: 1.25rem 2.5rem;
     text-transform: capitalize;
-    color: darkslategrey;`;
+    color: #2f4f4f;
+  `;
   const ProductContainer = styled.div`
     display: flex;
     align-items: center;
@@ -64,11 +65,11 @@ export default ({
       font-size: 1rem;
       font-weight: 600;
       text-transform: uppercase;
-      box-shadow: inset 0rem 0rem 0.5rem -0.18rem darkslategrey;
+      box-shadow: inset 0rem 0rem 0.5rem -0.18rem #2f4f4f;
       :hover {
         border-color: transparent;
         background-color: rgba(89, 85, 85, 0.1);
-        color: darkslategrey;
+        color: #2f4f4f;
       }
     }
   `;

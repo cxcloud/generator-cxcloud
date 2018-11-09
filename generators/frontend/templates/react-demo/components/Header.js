@@ -29,14 +29,13 @@ export default class extends Component {
             flex-direction: row;
             align-items: center;
             text-decoration: none;
-            color: darkslategrey;
+            color: #2f4f4f;
           }
           p {
             margin-right: 0.625rem;
           }
         }
-      }
-    `;
+      }`;
     const Logo = styled.img`
       display: flex;
       justify-content: flex-start;

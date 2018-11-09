@@ -14,7 +14,7 @@ export default class extends Component {
       margin: 0 auto;
       h1 {
         font-size: 1.25rem;
-        color: darkslategrey;
+        color: #2f4f4f;
         text-transform: uppercase;
       }
       div {
@@ -27,7 +27,7 @@ export default class extends Component {
       width: 32em;
       margin: 0 1.875rem;
       line-height: 1.75;
-      color: darkslategrey;
+      color: #2f4f4f;
         .icon {
           margin: 0.625rem auto;
           margin-bottom: 1.25rem;
@@ -38,7 +38,7 @@ export default class extends Component {
           text-align: center;
           font-size: 	1rem;
           font-weight: 600;
-          color: darkslategrey;
+          color: #2f4f4f;
         }
         .heart {
           margin-top: 1.75rem;

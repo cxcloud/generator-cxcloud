@@ -6,7 +6,7 @@ import styled from 'styled-components';
 export default ({ id, name }) => {
 
   const Wrapper = styled.div`
-    color: darkslategrey;
+    color: #2f4f4f;
     margin: 2.5rem 1.25rem auto 1.25rem;
     width: 14em;
     border-color: transparent;
@@ -15,7 +15,7 @@ export default ({ id, name }) => {
     display: flex;
     justify-content: center;
     cursor: pointer;
-    background-color: whitesmoke;
+    background-color: #f5f5f5;
     div {
       padding: 1.25rem;
       font-size: 1rem;
