@@ -106,26 +106,6 @@ module.exports = class extends Generator {
         when: p => p.isDeployedToKube,
         message: 'Choose an ECR repository',
         choices: this.options.repositories || []
-      },
-      {
-        type: 'confirm',
-        name: 'isRouted',
-        when: p => p.isDeployedToKube,
-        message: 'Do you want this service to be accessible on the internet?',
-        default: false
-      },
-      {
-        type: 'input',
-        name: 'kubeDomain',
-        when: p => p.isRouted,
-        message: 'Enter a domain name'
-      },
-      {
-        type: 'confirm',
-        name: 'isSecure',
-        when: p => p.isRouted,
-        message: 'Do you want a LetsEncrypt SSL certificate for this domain?',
-        default: false
       }
     ]);
   }
@@ -153,26 +133,8 @@ module.exports = class extends Generator {
     // Copy Deployment
     if (this.props.isDeployedToKube) {
       this.fs.copyTpl(
-        this.templatePath('deployment/deployment.yml'),
-        this.destinationPath('deployment/01-deployment.yml'),
-        this.props
-      );
-    }
-
-    // Copy Routing
-    if (this.props.isRouted) {
-      this.fs.copyTpl(
-        this.templatePath('deployment/routing.yml'),
-        this.destinationPath('deployment/02-routing.yml'),
-        this.props
-      );
-    }
-
-    // Copy Certificate
-    if (this.props.isSecure) {
-      this.fs.copyTpl(
-        this.templatePath('deployment/cert.yml'),
-        this.destinationPath('deployment/03-cert.yml'),
+        this.templatePath('deployment/cxcloud.yml'),
+        this.destinationPath('.cxcloud.yml'),
         this.props
       );
     }
