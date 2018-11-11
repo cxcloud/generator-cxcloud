@@ -141,8 +141,8 @@ module.exports = class extends Generator {
     // Copy Deployment
     if (this.props.isDeployedToKube) {
       this.fs.copyTpl(
-        this.templatePath('deployment/cxcloud.yml'),
-        this.destinationPath('.cxcloud.yml'),
+        this.templatePath('deployment/cxcloud.yaml'),
+        this.destinationPath('.cxcloud.yaml'),
         this.props
       );
     }
