@@ -10,6 +10,7 @@ import { attachAuthToken } from './utils/auth-middleware';
 import controllers from './controllers';
 
 const { errorHandler } = require('express-api-error-handler');
+const pkg = require('../package.json');
 
 const app = express();
 const host = config.has('host') ? config.get<string>('host') : null;
@@ -26,7 +27,8 @@ app.get('<%= apiPrefix %>', (req, res) => {
   res.json({
     health: 'OK',
     uptime: process.uptime(),
-    hostname: os.hostname()
+    hostname: os.hostname(),
+    version: pkg.version
   });
 });
 

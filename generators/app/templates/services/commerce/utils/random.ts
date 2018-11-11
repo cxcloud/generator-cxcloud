@@ -9,4 +9,3 @@ export async function generateRandomNumber(prefix = '') {
   } catch (err) {}
   return null;
 }
-
