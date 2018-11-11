@@ -16,7 +16,7 @@
     "dev": "ng serve",
     "start": "serve dist/ --single",
     "build":
-      "ng build --prod --build-optimizer --extract-css --env=${ENVIRONMENT:-prod} && npm run generate-config",
+      "ng build --prod --build-optimizer --extract-css --configuration=${ENVIRONMENT:-prod} && npm run generate-config",
     "generate-config": "ts-node scripts/extract-config.ts",
     "test": "ng test",
     "lint": "ng lint",

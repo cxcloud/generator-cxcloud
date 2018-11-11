@@ -1,6 +1,6 @@
 {
   "swagger": {
-    "basePath": "/api/v1",
+    "basePath": "<%= apiPrefix %>/v1",
     "outputDirectory": "./dist",
     "entryFile": "./src/index.ts",
     "name": "<%= projectName %>",
