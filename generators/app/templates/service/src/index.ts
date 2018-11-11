@@ -28,7 +28,8 @@ app.get('<%= apiPrefix %>', (req, res) => {
     health: 'OK',
     uptime: process.uptime(),
     hostname: os.hostname(),
-    version: pkg.version
+    version: pkg.version,
+    NODE_ENV: process.env.NODE_ENV
   });
 });
 

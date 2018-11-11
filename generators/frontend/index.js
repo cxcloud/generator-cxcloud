@@ -36,7 +36,7 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'projectName',
         message: 'Enter a DNS compatible project name',
-        default: this.appname
+        default: this.appname.replace(/\s/g, '-').toLowerCase()
       },
       {
         type: 'input',
@@ -67,6 +67,21 @@ module.exports = class extends Generator {
         name: 'frontend',
         message: 'Which demo do you want to generate?',
         choices: frontendChoices
+      },
+      {
+        type: 'confirm',
+        name: 'isDeployedToKube',
+        message: 'Do you want to deploy this demo to a Kubernetes cluster?',
+        default: true
+      },
+      {
+        type: 'list',
+        name: 'ecrRepository',
+        when: p => p.isDeployedToKube,
+        message: 'Choose an ECR repository',
+        choices: this.options.repositories || [
+          '307365680736.dkr.ecr.eu-west-1.amazonaws.com/cluster.cxcloud.com'
+        ]
       }
     ]);
   }
@@ -75,8 +90,36 @@ module.exports = class extends Generator {
     this.fs.copyTpl(
       this.templatePath(`${this.props.frontend}/**/*`),
       this.destinationPath(''),
+      this.props,
+      {},
+      {
+        globOptions: {
+          dot: true,
+          ignore: ['.DS_Store', '**/*.(jpg|jpeg|png|gif|svg)']
+        }
+      }
+    );
+
+    // Copy images without ejs processing
+    this.fs.copy(
+      this.templatePath(`${this.props.frontend}/**/*.(jpg|jpeg|png|gif|svg)`),
+      this.destinationPath('')
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('meta/gitignore'),
+      this.destinationPath('.gitignore'),
       this.props
     );
+
+    // Copy Deployment
+    if (this.props.isDeployedToKube) {
+      this.fs.copyTpl(
+        this.templatePath('meta/cxcloud.yaml'),
+        this.destinationPath('.cxcloud.yaml'),
+        this.props
+      );
+    }
   }
 
   install() {
