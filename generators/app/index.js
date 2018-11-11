@@ -138,10 +138,16 @@ module.exports = class extends Generator {
       );
     });
 
+    this.fs.copyTpl(
+      this.templatePath('meta/gitignore'),
+      this.destinationPath('.gitignore'),
+      this.props
+    );
+
     // Copy Deployment
     if (this.props.isDeployedToKube) {
       this.fs.copyTpl(
-        this.templatePath('deployment/cxcloud.yaml'),
+        this.templatePath('meta/cxcloud.yaml'),
         this.destinationPath('.cxcloud.yaml'),
         this.props
       );
