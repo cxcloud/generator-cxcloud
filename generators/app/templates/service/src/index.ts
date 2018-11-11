@@ -2,6 +2,7 @@ import * as express from 'express';
 import * as cors from 'cors';
 import * as config from 'config';
 import * as path from 'path';
+import * as os from 'os';
 import * as bodyParser from 'body-parser';
 import { Server } from 'typescript-rest';
 import { logger } from './utils/logger';
@@ -21,9 +22,11 @@ app.use(attachAuthToken);
 app.disable('x-powered-by');
 
 // Health Check
-app.get('/api', (req, res) => {
+app.get('<%= apiPrefix %>', (req, res) => {
   res.json({
-    health: 'OK'
+    health: 'OK',
+    uptime: process.uptime(),
+    hostname: os.hostname()
   });
 });
 
@@ -39,7 +42,7 @@ Server.swagger(
   [host ? 'https' : 'http']
 );
 
-app.use('/api/v1', v1);
+app.use('<%= apiPrefix %>/v1', v1);
 
 // Final Handler
 app.use(

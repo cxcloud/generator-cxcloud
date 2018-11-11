@@ -38,13 +38,21 @@ module.exports = class extends Generator {
     );
 
     const githubUsername = await this.user.github.username();
+    const appName = this.appname.replace(/\s/g, '-').toLowerCase();
 
     this.props = await this.prompt([
       {
         type: 'input',
         name: 'projectName',
         message: 'Enter a DNS compatible project name',
-        default: this.appname
+        default: appName
+      },
+      {
+        type: 'input',
+        name: 'apiPrefix',
+        message:
+          'Enter an API prefix for this service (without trailing slash)',
+        default: `/api/${appName}`
       },
       {
         type: 'input',
