@@ -39,7 +39,7 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'projectName',
         message: 'Enter a DNS compatible project name',
-        default: this.appname
+        default: this.appname.replace(/\s/g, '-').toLowerCase()
       },
       {
         type: 'input',
@@ -126,6 +126,21 @@ module.exports = class extends Generator {
         }
       }
     );
+
+    this.fs.copyTpl(
+      this.templatePath('meta/gitignore'),
+      this.destinationPath('.gitignore'),
+      this.props
+    );
+
+    // Copy Deployment
+    if (this.props.isDeployedToKube) {
+      this.fs.copyTpl(
+        this.templatePath('meta/cxcloud.yaml'),
+        this.destinationPath('.cxcloud.yaml'),
+        this.props
+      );
+    }
   }
 
   install() {

@@ -1,0 +1,11 @@
+deployment:
+  name: $APP_NAME
+  image:
+    name: $APP_NAME
+    repository: <%= ecrRepository %>
+    version: $APP_VERSION
+  containerPort: 80
+  replicas: 2
+  env:
+    - name: NODE_ENV
+      value: development
