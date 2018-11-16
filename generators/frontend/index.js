@@ -3,18 +3,19 @@ const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
 const downlodGit = require('download-git-repo');
-const fsx = require('fs-extra');
+const fs = require('fs-extra');
 
-const frontendChoices = [
-  {
-    value: 'angular-demo',
-    name: 'Front-end CXCloud demo based on Angular 7'
-  },
-  {
-    value: 'react-demo',
-    name: 'Front-end CXCloud demo based on React'
-  }
-];
+// Temporarily disable choices
+// const frontendChoices = [
+//   {
+//     value: 'angular-demo',
+//     name: 'Front-end CXCloud demo based on Angular 7'
+//   },
+//   {
+//     value: 'react-demo',
+//     name: 'Front-end CXCloud demo based on React'
+//   }
+// ];
 
 module.exports = class extends Generator {
   initializing() {
@@ -63,75 +64,66 @@ module.exports = class extends Generator {
         name: 'authorEmail',
         message: 'Enter your email',
         default: this.user.git.email()
-      },
-      {
-        type: 'list',
-        name: 'frontend',
-        message: 'Which demo do you want to generate?',
-        choices: frontendChoices
       }
+      // {
+      //   type: 'list',
+      //   name: 'frontend',
+      //   message: 'Which demo do you want to generate?',
+      //   choices: frontendChoices
+      // }
     ]);
   }
 
   writing() {
     let done = this.async();
-    console.log('Downloading the necessary modules..');
+    this.log('Downloading the necessary modules..');
     downlodGit(
       'direct:https://github.com/cxcloud/demo-frontend-angular/archive/master.zip',
       this.destinationPath(''),
       {},
-      err => {
+      async err => {
         if (err) {
-          return console.log(
-            'Could not read the file package.json... Aborting'
-          );
+          return this.log('Could not read the file package.json... Aborting');
         }
-        console.log('Download complete.. Updating the packages file');
-        const generatePackage = async () => {
-          try {
-            const data = await fsx.readFile(
-              this.destinationPath('package.json')
-            );
-            const originalData = JSON.parse(data);
-            // Build extra fields
-            const customJSON = {
-              name: this.props.projectName,
-              description: this.props.projectDescription,
-              author: {
-                email: this.props.authorEmail,
-                name: this.props.authorName
-              },
-              bugs: {
-                url: `https://github.com/${this.props.orgName}/${
-                  this.props.projectName
-                }/issues`
-              },
-              homepage: `https://github.com/${this.props.orgName}/${
+        this.log('Download complete.. Updating the packages file');
+        try {
+          const data = await fs.readFile(this.destinationPath('package.json'));
+          const originalData = JSON.parse(data);
+          // Build extra fields
+          const customJSON = {
+            name: this.props.projectName,
+            description: this.props.projectDescription,
+            author: {
+              email: this.props.authorEmail,
+              name: this.props.authorName
+            },
+            bugs: {
+              url: `https://github.com/${this.props.orgName}/${
                 this.props.projectName
-              }#readme`
-            };
+              }/issues`
+            },
+            homepage: `https://github.com/${this.props.orgName}/${
+              this.props.projectName
+            }#readme`
+          };
 
-            // Create new object with old package.json data and extra fields
-            const finalData = Object.assign(originalData, customJSON);
+          // Create new object with old package.json data and extra fields
+          const finalData = Object.assign(originalData, customJSON);
 
-            // Overwrite package.json with new object
-            await fsx.writeFile(
-              this.destinationPath('package.json'),
-              JSON.stringify(finalData, null, 2)
-            );
-            console.log('Packages file update complete..');
+          // Overwrite package.json with new object
+          await fs.writeFile(
+            this.destinationPath('package.json'),
+            JSON.stringify(finalData, null, 2)
+          );
+          this.log('Packages file update complete..');
 
-            /** Because the process of downloading files from Git is async
+          /** Because the process of downloading files from Git is async
              done() is needed so that the process does not jump straight to the install method.
           */
-            done();
-          } catch (err) {
-            return console.log(
-              'Could not read the file package.json... Aborting'
-            );
-          }
-        };
-        generatePackage();
+          done();
+        } catch (err) {
+          return this.log('Could not read the file package.json... Aborting');
+        }
       }
     );
   }
