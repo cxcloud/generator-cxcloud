@@ -2,17 +2,20 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
+const downlodGit = require('download-git-repo');
+const fs = require('fs-extra');
 
-const frontendChoices = [
-  {
-    value: 'angular-demo',
-    name: 'Front-end CXCloud demo based on Angular 7'
-  },
-  {
-    value: 'react-demo',
-    name: 'Front-end CXCloud demo based on React'
-  }
-];
+// Temporarily disable choices
+// const frontendChoices = [
+//   {
+//     value: 'angular-demo',
+//     name: 'Front-end CXCloud demo based on Angular 7'
+//   },
+//   {
+//     value: 'react-demo',
+//     name: 'Front-end CXCloud demo based on React'
+//   }
+// ];
 
 module.exports = class extends Generator {
   initializing() {
@@ -42,7 +45,7 @@ module.exports = class extends Generator {
         type: 'input',
         name: 'projectDescription',
         message: 'Enter the project description',
-        default: 'A CXCloud Microservice'
+        default: 'A CXCloud demo'
       },
       {
         type: 'input',
@@ -63,12 +66,6 @@ module.exports = class extends Generator {
         default: this.user.git.email()
       },
       {
-        type: 'list',
-        name: 'frontend',
-        message: 'Which demo do you want to generate?',
-        choices: frontendChoices
-      },
-      {
         type: 'confirm',
         name: 'isDeployedToKube',
         message: 'Do you want to deploy this demo to a Kubernetes cluster?',
@@ -83,33 +80,66 @@ module.exports = class extends Generator {
           '307365680736.dkr.ecr.eu-west-1.amazonaws.com/cluster.cxcloud.com'
         ]
       }
+      // {
+      //   type: 'list',
+      //   name: 'frontend',
+      //   message: 'Which demo do you want to generate?',
+      //   choices: frontendChoices
+      // }
     ]);
   }
 
   writing() {
-    this.fs.copyTpl(
-      this.templatePath(`${this.props.frontend}/**/*`),
+    let done = this.async();
+    this.log('Downloading the necessary modules..');
+    downlodGit(
+      'direct:https://github.com/cxcloud/demo-frontend-angular/archive/master.zip',
       this.destinationPath(''),
-      this.props,
       {},
-      {
-        globOptions: {
-          dot: true,
-          ignore: ['.DS_Store', '**/*.(jpg|jpeg|png|gif|svg)']
+      async err => {
+        if (err) {
+          return this.log('Could not read the file package.json... Aborting');
+        }
+        this.log('Download complete.. Updating the packages file');
+        try {
+          const data = await fs.readFile(this.destinationPath('package.json'));
+          const originalData = JSON.parse(data);
+          // Build extra fields
+          const customJSON = {
+            name: this.props.projectName,
+            description: this.props.projectDescription,
+            author: {
+              email: this.props.authorEmail,
+              name: this.props.authorName
+            },
+            bugs: {
+              url: `https://github.com/${this.props.orgName}/${
+                this.props.projectName
+              }/issues`
+            },
+            homepage: `https://github.com/${this.props.orgName}/${
+              this.props.projectName
+            }#readme`
+          };
+
+          // Create new object with old package.json data and extra fields
+          const finalData = Object.assign(originalData, customJSON);
+
+          // Overwrite package.json with new object
+          await fs.writeFile(
+            this.destinationPath('package.json'),
+            JSON.stringify(finalData, null, 2)
+          );
+          this.log('Packages file update complete..');
+
+          /** Because the process of downloading files from Git is async
+             done() is needed so that the process does not jump straight to the install method.
+          */
+          done();
+        } catch (err) {
+          return this.log('Could not read the file package.json... Aborting');
         }
       }
-    );
-
-    // Copy images without ejs processing
-    this.fs.copy(
-      this.templatePath(`${this.props.frontend}/**/*.(jpg|jpeg|png|gif|svg)`),
-      this.destinationPath('')
-    );
-
-    this.fs.copyTpl(
-      this.templatePath('meta/gitignore'),
-      this.destinationPath('.gitignore'),
-      this.props
     );
 
     // Copy Deployment
