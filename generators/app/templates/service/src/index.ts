@@ -13,7 +13,6 @@ const { errorHandler } = require('express-api-error-handler');
 const pkg = require('../package.json');
 
 const app = express();
-const host = config.has('host') ? config.get<string>('host') : null;
 const port = config.get<number>('port') || 3000;
 let server: any;
 
@@ -40,9 +39,7 @@ Server.buildServices(v1, ...controllers);
 Server.swagger(
   v1,
   path.resolve(__dirname, '../dist/swagger.json'),
-  '/api-docs',
-  host || `localhost:${port}`,
-  [host ? 'https' : 'http']
+  '/api-docs'
 );
 
 app.use('<%= apiPrefix %>/v1', v1);
