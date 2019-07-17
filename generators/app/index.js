@@ -100,20 +100,6 @@ module.exports = class extends Generator {
 
           return true;
         }
-      },
-      {
-        type: 'confirm',
-        name: 'isDeployedToKube',
-        message:
-          'Do you want to deploy this microservice to a Kubernetes cluster?',
-        default: true
-      },
-      {
-        type: 'list',
-        name: 'ecrRepository',
-        when: p => p.isDeployedToKube,
-        message: 'Choose an ECR repository',
-        choices: this.options.repositories || []
       }
     ]);
   }
@@ -145,13 +131,11 @@ module.exports = class extends Generator {
     );
 
     // Copy Deployment
-    if (this.props.isDeployedToKube) {
-      this.fs.copyTpl(
-        this.templatePath('meta/cxcloud.yaml'),
-        this.destinationPath('.cxcloud.yaml'),
-        this.props
-      );
-    }
+    this.fs.copyTpl(
+      this.templatePath('meta/cxcloud.yaml'),
+      this.destinationPath('.cxcloud.yaml'),
+      this.props
+    );
   }
 
   install() {
