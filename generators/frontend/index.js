@@ -78,7 +78,7 @@ module.exports = class extends Generator {
     let done = this.async();
     this.log('Downloading the necessary modules..');
     downlodGit(
-      'direct:https://github.com/cxcloud/demo-frontend-angular/archive/master.zip',
+      'direct:https://github.com/cxcloud/generator-demo-frontend/archive/master.zip',
       this.destinationPath(''),
       {},
       async err => {
