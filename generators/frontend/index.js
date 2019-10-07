@@ -64,21 +64,6 @@ module.exports = class extends Generator {
         name: 'authorEmail',
         message: 'Enter your email',
         default: this.user.git.email()
-      },
-      {
-        type: 'confirm',
-        name: 'isDeployedToKube',
-        message: 'Do you want to deploy this demo to a Kubernetes cluster?',
-        default: true
-      },
-      {
-        type: 'list',
-        name: 'ecrRepository',
-        when: p => p.isDeployedToKube,
-        message: 'Choose an ECR repository',
-        choices: this.options.repositories || [
-          '307365680736.dkr.ecr.eu-west-1.amazonaws.com/cluster.cxcloud.com'
-        ]
       }
       // {
       //   type: 'list',
@@ -143,13 +128,11 @@ module.exports = class extends Generator {
     );
 
     // Copy Deployment
-    if (this.props.isDeployedToKube) {
-      this.fs.copyTpl(
-        this.templatePath('meta/cxcloud.yaml'),
-        this.destinationPath('.cxcloud.yaml'),
-        this.props
-      );
-    }
+    this.fs.copyTpl(
+      this.templatePath('meta/cxcloud.yaml'),
+      this.destinationPath('.cxcloud.yaml'),
+      this.props
+    );
   }
 
   install() {
